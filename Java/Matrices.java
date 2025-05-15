@@ -43,8 +43,8 @@ public class matrices {
                     matriz = matriz + mat[f][c]+" ";
                     }
             }else{
-                for(int c=filas;c>0;c-=1){
-                    matriz = matriz + mat[f][c]+" ";
+                for(int c=filas-1;c=>0;c--){
+                    matr= iz matriz + mat[f][c]+" ";
                     }
             }
             matriz = matriz + "\n";
