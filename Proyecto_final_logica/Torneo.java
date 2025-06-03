@@ -12,6 +12,12 @@ public class Torneo {
         while (true) {
             try {
                 nombre = JOptionPane.showInputDialog("Nombre del equipo " + (i + 1) + ":");
+                
+                if (nombre == null) {
+                JOptionPane.showMessageDialog(null, "Programa finalizado por el usuario.");
+                System.exit(0);
+            }
+                
                 if (nombre == null || nombre.trim().isEmpty())
                     throw new Exception("Nombre vacío");
                 nombre = nombre.trim();
@@ -108,18 +114,10 @@ public class Torneo {
         String estadisticas = "\uD83C\uDFC6 CAMPEÓN DEL TORNEO \uD83C\uDFC6\n\n" +
             "Nombre: " + campeon.getNombre() + "\n\n" +
             "[Fase 1 - Todos contra todos]\n" +
-            "Puntos: " + campeon.puntosFase1 + "\n" +
-            "Goles a favor: " + campeon.golesAFavorFase1 + "\n" +
-            "Goles en contra: " + campeon.golesEnContraFase1 + "\n" +
-            "Diferencia de goles: " + (campeon.golesAFavorFase1 - campeon.golesEnContraFase1) + "\n" +
-            "Minuto del primer gol: " + (campeon.primerGolMinutoFase1 == Integer.MAX_VALUE ? "No anotó goles" : campeon.primerGolMinutoFase1) + "\n\n" +
+            "Puntos: " + campeon.puntosFase1 + "\n\n" +
+             
             "[Fase 2 - Grupos y Final]\n" +
-            "Puntos: " + campeon.getPuntos() + "\n" +
-            "Goles a favor: " + campeon.getGolesAFavor() + "\n" +
-            "Goles en contra: " + campeon.getGolesEnContra() + "\n" +
-            "Diferencia de goles: " + campeon.getDiferenciaDeGoles() + "\n" +
-            "Minuto del primer gol: " + (campeon.getPrimerGolMinuto() == Integer.MAX_VALUE ? "No anotó goles" : campeon.getPrimerGolMinuto());
-
+             "Goles a favor: " + campeon.getGolesAFavor() + "\n";
         JOptionPane.showMessageDialog(null, estadisticas);
     }
 

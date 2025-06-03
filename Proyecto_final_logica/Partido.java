@@ -25,21 +25,46 @@ public class Partido {
         visitante.registrarPartido(golesVisitante, golesLocal, minutoPrimerGol);
     }
 
-    public void jugarGrupo(Equipo local, Equipo visitante) {
-        Random rand = new Random();
-        JOptionPane.showMessageDialog(null, "Partido entre " + local + " y " + visitante);
-        golesLocal = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los goles del equipo " + local + ":"));
-        golesVisitante = Integer.parseInt(JOptionPane.showInputDialog("Ingrese los goles del equipo " + visitante + ":"));
-        if (golesLocal < 0 || golesVisitante < 0) {
-            JOptionPane.showMessageDialog(null, "Los goles no pueden ser negativos. Intente de nuevo.");
-            jugarGrupo(local, visitante);
-            return;
-        }
-        minutoPrimerGol = (golesLocal + golesVisitante > 0) ? rand.nextInt(90) + 1 : Integer.MAX_VALUE;
+   public void jugarGrupo(Equipo local, Equipo visitante) {
+    Random rand = new Random();
+    JOptionPane.showMessageDialog(null, "Partido entre " + local + " y " + visitante);
 
-        local.registrarPartido(golesLocal, golesVisitante, minutoPrimerGol);
-        visitante.registrarPartido(golesVisitante, golesLocal, minutoPrimerGol);
+    golesLocal = solicitarGoles("Ingrese los goles del equipo " + local + ":");
+    golesVisitante = solicitarGoles("Ingrese los goles del equipo " + visitante + ":");
+
+    int minutoPrimerGol = (golesLocal + golesVisitante > 0) ? rand.nextInt(90) + 1 : Integer.MAX_VALUE;
+
+    local.registrarPartido(golesLocal, golesVisitante, minutoPrimerGol);
+    visitante.registrarPartido(golesVisitante, golesLocal, minutoPrimerGol);
+}
+
+public int solicitarGoles(String mensaje) {
+    while (true) {
+        String input = JOptionPane.showInputDialog(mensaje);
+        
+        if (input == null) {
+            JOptionPane.showMessageDialog(null, "Programa finalizado por el usuario.");
+            System.exit(0);
+        }
+        
+        if (input == null || input.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo no puede estar vacío. Inténtelo de nuevo.");
+            continue;
+        }
+
+        try {
+            int goles = Integer.parseInt(input.trim());
+            if (goles < 0) {
+                JOptionPane.showMessageDialog(null, "Los goles no pueden ser negativos. Inténtelo de nuevo.");
+                continue;
+            }
+            return goles;
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Debe ingresar un número entero válido. Inténtelo de nuevo.");
+        }
     }
+}
+
 
     public void jugarFinal(Equipo local, Equipo visitante) {
         jugarGrupo(local, visitante);
